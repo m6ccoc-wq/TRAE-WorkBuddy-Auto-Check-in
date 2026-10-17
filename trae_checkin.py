@@ -51,7 +51,7 @@ def get_headers(token):
 
 def get_token():
     if os.environ.get('TRAE_JWT'):
-        return os.environ['TRAE_JWT']
+        return os.environ['TRAE_JWT'].strip().lstrip('\ufeff')  # 防 BOM 污染
     tf = os.environ.get('TRAE_TOKEN_FILE', '/tmp/trae_auth_decrypted.json')
     if os.path.exists(tf):
         return json.load(open(tf))['token']
